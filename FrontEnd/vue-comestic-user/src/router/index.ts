@@ -1,16 +1,44 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 
-import HomePage from "../components/Home.vue";
-import AppProduct from "../components/Product.vue";
+import DefaultLayout from '../layouts/DefaultLayout.vue'
+import OnlyChildren from '../layouts/OnlyChildren.vue'
+
+import Home from '../components/Home.vue'
+import Product from '../components/Product.vue'
 
 const routes = [
-    { path: "/", component: HomePage },
-    { path: "/product", component: AppProduct },
-];
+  {
+    path: '/',
+    component: DefaultLayout,
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: Home
+      },
+      {
+        path: '1',
+        name: 'product',
+        component: Product
+      }
+    ]
+  },
+  {
+    path: '/product',
+    component: OnlyChildren,
+    children: [
+      {
+        path: 'product',
+        name: 'Product',
+        component: Product
+      }
+    ]
+  }
+]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
-});
+  history: createWebHistory(),
+  routes
+})
 
-export default router;
+export default router
