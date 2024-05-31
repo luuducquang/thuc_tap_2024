@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pymongo.collection import Collection
 from config.database import database
-from schemas.schemas import ImageProduct
+from schemas.schemas import ImageProducts
 from service.product_service import insert_product    
 
 router = APIRouter()
@@ -9,7 +9,7 @@ router = APIRouter()
 product_collection: Collection = database['AnhSanPham']
 
 @router.post("/products/")
-async def create_product(product_data: ImageProduct):
+async def create_product(product_data: ImageProducts):
     product_id = insert_product(product_data)
     return {"message": "Product created successfully", "product_id": product_id}
 
