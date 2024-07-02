@@ -8,17 +8,18 @@ router = APIRouter()
 
 product_collection: Collection = database['AnhSanPham']
 
-@router.post("/products/")
-async def create_product(product_data: ImageProducts):
-    product_id = insert_product(product_data)
-    return {"message": "Product created successfully", "product_id": product_id}
-
 @router.get("/products")
 async def get_products():
-    products = []
-    for product in product_collection.find():
-        product["_id"] = str(product["_id"])
-        products.append(product)
-    return products
+    datas = []
+    for data in product_collection.find():
+        data["_id"] = str(data["_id"])
+        datas.append(data)
+    return datas
+
+@router.post("/products/")
+async def create_product(_data: ImageProducts):
+    _id = insert_product(_data)
+    return {"message": "Product created successfully", "_id": _id}
+
 
 

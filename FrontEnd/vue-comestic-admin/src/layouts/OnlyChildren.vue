@@ -5,8 +5,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "OnlyChildren",
-};
+<script setup>
+
 </script>

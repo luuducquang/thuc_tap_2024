@@ -1,10 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
-import DefaultLayout from '../layouts/DefaultLayout.vue'
-import OnlyChildren from '../layouts/OnlyChildren.vue'
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
-import Home from '../components/Home.vue'
-import Product from '../components/Product.vue'
+import Home from '@/views/Home.vue';
+import Product from '@/views/Product.vue';
 
 const routes = [
   {
@@ -14,31 +13,26 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+          breadcrumbName: 'Home'
+        }
       },
-      {
-        path: '1',
-        name: 'product',
-        component: Product
-      }
-    ]
-  },
-  {
-    path: '/product',
-    component: OnlyChildren,
-    children: [
       {
         path: 'product',
         name: 'Product',
-        component: Product
+        component: Product,
+        meta: {
+          breadcrumbName: 'Product'
+        }
       }
     ]
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;
