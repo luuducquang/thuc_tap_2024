@@ -11,16 +11,16 @@
         <div class="icon-container">
             <i class="fa-solid fa-message"></i>
         </div>
-        <a-dropdown>
-            <a class="ant-dropdown-link" @click.prevent>
+        <a-dropdown :trigger="['click']">
+            <a class="ant-dropdown-link" :title="info.name" @click.prevent>
                 <img
-                    :src="avatar"
+                    :src="info.avt"
                     alt="Avatar"
                     width="35"
                     height="35"
                     :style="{ borderRadius: '50%' }"
                 />
-                <DownOutlined />
+                <!-- <DownOutlined /> -->
             </a>
             <template #overlay>
                 <a-menu>
@@ -31,7 +31,7 @@
                         <a class="dropdown-item" href="#">Settings</a>
                     </a-menu-item>
                     <a-menu-item>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="/login">Logout</a>
                     </a-menu-item>
                 </a-menu>
             </template>
@@ -40,7 +40,26 @@
 </template>
 
 <script setup lang="ts">
+interface User {
+    anhdaidien: string;
+    hoten: string;
+}
+
 import avatar from "@/assets/logo.jpg";
+import { computed } from "vue";
+import { apiImage } from "@/constant/api";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const user = computed<User>(() => store.state.user);
+
+const info = computed(() => {
+    return {
+        avt: apiImage + user.value.anhdaidien,
+        name: user.value.hoten,
+    };
+});
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +70,7 @@ import avatar from "@/assets/logo.jpg";
     top: 0;
     right: 0;
     padding: 0 20px;
+    z-index: 999;
 }
 
 .icon-container {

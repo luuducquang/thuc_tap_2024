@@ -1,6 +1,9 @@
 import { apiClient } from "@/constant/api";
 
-export const getCategory = async (): Promise<any> => {
-    const res = await apiClient?.get(`/api/DanhMuc/get-all-danhmuc`);  
+export const searchProduct = async (userToken:string,data:object):Promise<any> =>{
+    const res = await apiClient?.post(`/api-admin/SanPham/search-sanpham`,data,{
+        headers: {
+            "Authorization": "Bearer " + userToken,
+        }});
     return res?.data;
-};
+}

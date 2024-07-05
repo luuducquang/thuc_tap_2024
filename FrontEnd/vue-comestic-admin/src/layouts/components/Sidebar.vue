@@ -1,5 +1,8 @@
 <template>
-    <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+    <aside
+        :class="`${is_expanded ? 'is-expanded' : ''}`"
+        :style="{ minWidth: is_expanded ? '264px' : '64px' }"
+    >
         <div class="logo">
             <img :src="logo" alt="logo" />
             <span>Comestic</span>
@@ -27,19 +30,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,defineEmits  } from "vue";
 import logo from "@/assets/logo.jpg";
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true");
+const emit = defineEmits(["update:isExpanded"]);
 
 const ToggleMenu = () => {
     is_expanded.value = !is_expanded.value;
     localStorage.setItem("is_expanded", is_expanded.value);
+    emit("update:isExpanded", is_expanded.value);
 };
 </script>
 
 <style lang="scss" scoped>
 aside {
+    min-width: 64px;
+    max-width: 264px;
     display: flex;
     flex-direction: column;
 
@@ -49,7 +56,7 @@ aside {
     width: calc(2rem + 32px);
     overflow: hidden;
     min-height: 100vh;
-    padding: .9rem;
+    padding: 0.9rem;
     padding-top: 14px;
 
     transition: 0.2s ease-in-out;
@@ -66,7 +73,7 @@ aside {
             width: 2rem;
         }
 
-        span{
+        span {
             height: 32px;
             line-height: 32px;
             font-weight: 700;
@@ -198,9 +205,9 @@ aside {
         }
     }
 
-    @media (max-width: 1024px) {
-        position: absolute;
-        z-index: 99;
-    }
+    // @media (max-width: 1024px) {
+    //     position: absolute;
+    //     z-index: 99;
+    // }
 }
 </style>
